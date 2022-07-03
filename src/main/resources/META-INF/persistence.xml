@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="todo1-store-ejb"
+		transaction-type="JTA">
+		
+		<jta-data-source>java:jboss/datasources/storeTodo1DS</jta-data-source>
+		
+		<class>com.todo1.store.modelo.general.Catalogo</class>
+
+
+
+		<properties>
+			<property name="hibernate.default_schema" value="global" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect" />
+			<!-- para lazy loading de forma "transparente" -->
+			<property name="hibernate.enable_lazy_load_no_trans" value="true" />
+
+			<!-- propiedades para envers -->
+			<property name="org.hibernate.envers.default_schema" value="auditoria" />
+			<property name="org.hibernate.envers.audit_table_suffix" value="_aud" />
+			<property name="org.hibernate.envers.revision_field_name" value="id_revision" />
+			<property name="org.hibernate.envers.revision_type_field_name" value="tipo_revision" />
+			
+			<!-- propiedades para deshabilitar envers -->
+			<!-- <property name="hibernate.integration.envers.enabled" value="false" />
+			<property name="hibernate.envers.autoRegisterListeners" value="false"/> -->
+
+			<!-- propiedades adicionales -->
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.use_sql_comments" value="true" />
+			<property name="hibernate.generate_statistics" value="false" />
+
+
+		</properties>
+	</persistence-unit>
+</persistence>
