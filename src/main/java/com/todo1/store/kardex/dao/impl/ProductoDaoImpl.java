@@ -50,8 +50,10 @@ public class ProductoDaoImpl extends GenericJpaDaoImpl<Producto, Long> implement
         try {
             final TypedQuery<ProductoDTO> tQuery = this.em.createQuery(jpql.toString(), ProductoDTO.class);
             tQuery.setParameter("estadoRegistro", EstadoRegistro.ACTIVO.toString());
-            tQuery.setMaxResults(itemsPorPagina);
-            tQuery.setFirstResult((pagina - 1) * itemsPorPagina);
+            if (pagina > 0) {
+                tQuery.setMaxResults(itemsPorPagina);
+                tQuery.setFirstResult((pagina - 1) * itemsPorPagina);
+            }
             return tQuery.getResultList();
         } catch (final NoResultException e) {
             return Collections.emptyList();
