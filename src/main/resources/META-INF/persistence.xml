@@ -9,9 +9,12 @@
 		<jta-data-source>java:jboss/datasources/storeTodo1DS</jta-data-source>
 		
 		<class>com.todo1.store.modelo.general.Catalogo</class>
-
-
-
+		<class>com.todo1.store.modelo.kardex.Cliente</class>
+		<class>com.todo1.store.modelo.kardex.Compra</class>
+		<class>com.todo1.store.modelo.kardex.DetalleCompra</class>
+		<class>com.todo1.store.modelo.kardex.Galeria</class>
+		<class>com.todo1.store.modelo.kardex.Movimiento</class>
+		<class>com.todo1.store.modelo.kardex.Producto</class>
 		<properties>
 			<property name="hibernate.default_schema" value="global" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect" />
