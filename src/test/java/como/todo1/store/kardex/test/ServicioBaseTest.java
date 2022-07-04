@@ -45,7 +45,7 @@ public abstract class ServicioBaseTest {
         props.put("hibernate.connection.driver_class", "org.postgresql.Driver");
         props.put("hibernate.connection.url", "jdbc:postgresql://127.0.0.1:6437/todo1_store");
         props.put("hibernate.connection.username", "todo1");
-        props.put("hibernate.connection.password", "T0d01*");
+        props.put("hibernate.connection.password", "*****");
         props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 
         final EntityManagerFactory factory = Persistence.createEntityManagerFactory("todo1-store-ejb", props);
