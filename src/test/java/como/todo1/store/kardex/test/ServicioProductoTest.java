@@ -23,10 +23,11 @@ public class ServicioProductoTest extends ServicioBaseTest {
      */
     @Test
     public void obtenerProductos() {
-        em.getTransaction().begin();
+        // em.getTransaction().begin();
         try {
             Assert.assertNotNull(productoDaoImpl.obtenerTodos(1, 50));
         } catch (GenericException e) {
+            e.printStackTrace();
         }
     }
 
@@ -39,7 +40,6 @@ public class ServicioProductoTest extends ServicioBaseTest {
      */
     @Test
     public void contarProductos() {
-        em.getTransaction().begin();
         try {
             Assert.assertNotNull(productoDaoImpl.contarTodos());
         } catch (GenericException e) {
@@ -55,7 +55,6 @@ public class ServicioProductoTest extends ServicioBaseTest {
      */
     @Test
     public void obtenerProductosSinPaginacion() {
-        em.getTransaction().begin();
         try {
             Assert.assertNotNull(productoDaoImpl.obtenerTodos(0, 10));
         } catch (GenericException e) {
@@ -67,9 +66,8 @@ public class ServicioProductoTest extends ServicioBaseTest {
      * @history Jul 3, 2022 - 9:14:10 PM holger.morales
      *          Versión inicial.
      */
-    @Test(expected = GenericException.class)
-    public void obtenerProductosConValoresNulosPaginacion() {
-        em.getTransaction().begin();
+    @Test
+    public void obtenerProductosConValoresNuºlosPaginacion() {
         try {
             Assert.assertNull(productoDaoImpl.obtenerTodos(null, null));
         } catch (GenericException e) {

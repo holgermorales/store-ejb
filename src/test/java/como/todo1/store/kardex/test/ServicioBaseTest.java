@@ -18,7 +18,7 @@ import com.todo1.store.kardex.servicio.impl.ServicioProductoImpl;
 /**
  * @author holger.morales
  */
-public abstract class ServicioBaseTest {
+public class ServicioBaseTest {
     static EntityManager em;
 
     // Daos
@@ -48,9 +48,9 @@ public abstract class ServicioBaseTest {
         props.put("hibernate.connection.password", "*****");
         props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 
-        final EntityManagerFactory factory = Persistence.createEntityManagerFactory("todo1-store-ejb", props);
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("todo1-store-ejb", props);
         em = factory.createEntityManager();
-        // productoDaoImpl.setEm(em);
+         productoDaoImpl.setEm(em);
 
     }
 

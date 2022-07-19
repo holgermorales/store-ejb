@@ -1,11 +1,14 @@
 package com.todo1.store.general.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 
 import com.todo1.store.CatalogoDTO;
 import com.todo1.store.enumerados.EstadoRegistro;
@@ -46,6 +49,36 @@ public class CatalogoDaoImpl extends GenericJpaDaoImpl<Catalogo, Long> implement
             return Collections.emptyList();
         } catch (final Exception e) {
             throw new GenericException("Se produjo un error al obtener el catálogo.", e).addInfo("Grupo", grupo).addInfo("Estado registro", estadoRegistro.toString());
+        }
+    }
+
+    @Override
+    public Catalogo obtenerPorNemonico(String nemonico) throws GenericException {
+        final CriteriaBuilder criteriaBuilder = this.em.getCriteriaBuilder();
+        final CriteriaQuery<Catalogo> criteriaQuery = criteriaBuilder.createQuery(Catalogo.class);
+        final Root<Catalogo> catalogoRoot = criteriaQuery.from(Catalogo.class);
+        criteriaQuery.select(catalogoRoot);
+        final List<Predicate> criteria = new ArrayList<>();
+
+        final ParameterExpression<String> paramNemonico = criteriaBuilder.parameter(String.class, "nemonico");
+        criteria.add(criteriaBuilder.equal(catalogoRoot.get("nemonico"), paramNemonico));
+
+        final ParameterExpression<String> paramEstado = criteriaBuilder.parameter(String.class, "estadoRegistro");
+        criteria.add(criteriaBuilder.equal(catalogoRoot.get("estadoRegistro"), paramEstado));
+
+        criteriaQuery.where(criteriaBuilder.and(criteria.toArray(new Predicate[0])));
+
+        try {
+            final TypedQuery<Catalogo> typedQuery = this.em.createQuery(criteriaQuery);
+            typedQuery.setParameter("nemonico", nemonico);
+            typedQuery.setParameter("estadoRegistro", EstadoRegistro.ACTIVO.toString());
+            return typedQuery.getSingleResult();
+        } catch (final NoResultException e) {
+            throw new GenericException("No se puede determinar el catálogo.").addInfo("Nemónico", nemonico);
+        } catch (final NonUniqueResultException e) {
+            throw new GenericException("Existe mas de un registro para el mismo catálogo. Por favor contáctese con el Administrado del Sistema.").addInfo("Nemónico", nemonico);
+        } catch (final Exception e) {
+            throw new GenericException("Se produjo un error al obtener el catálogo", e).addInfo("Nemónico", nemonico);
         }
     }
 

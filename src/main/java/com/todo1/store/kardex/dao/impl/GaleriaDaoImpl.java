@@ -33,15 +33,15 @@ public class GaleriaDaoImpl extends GenericJpaDaoImpl<Galeria, Long> implements 
         jpql.append("select new ");
         jpql.append(GaleriaDTO.class.getCanonicalName());
         jpql.append(" ( ");
-        jpql.append("g.id, ");
-        jpql.append("g.imagen ");
-        jpql.append(") ");
-        jpql.append("from Galeria g");
-        jpql.append("join g.producto p ");
-        jpql.append("where ");
-        jpql.append("p.id = :idProducto ");
-        jpql.append("and p.estadoRegistro = :estadoRegistro ");
-        jpql.append("and g.estadoRegistro = :estadoRegistro ");
+        jpql.append(" g.id, ");
+        jpql.append(" g.imagen ");
+        jpql.append(" ) ");
+        jpql.append(" from Galeria g");
+        jpql.append(" join g.producto p ");
+        jpql.append(" where ");
+        jpql.append(" p.id = :idProducto ");
+        jpql.append(" and p.estadoRegistro = :estadoRegistro ");
+        jpql.append(" and g.estadoRegistro = :estadoRegistro ");
         try {
             final TypedQuery<GaleriaDTO> tQuery = this.em.createQuery(jpql.toString(), GaleriaDTO.class);
             tQuery.setParameter("idProducto", idProducto);

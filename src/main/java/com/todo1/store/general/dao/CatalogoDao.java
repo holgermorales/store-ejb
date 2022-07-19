@@ -29,4 +29,16 @@ public interface CatalogoDao extends GenericJpaDao<Catalogo, Long> {
      * @throws GenericException
      */
     public List<CatalogoDTO> obtenerPorGrupoEstado(String grupo, EstadoRegistro estadoRegistro) throws GenericException;
+
+    /**
+     * Obtiene el catálogo por el nemónico.
+     * @author holger.morales
+     * @history Jul 16, 2022 - 11:26:43 AM holger.morales
+     *          Versión inicial.
+     * @param nemonico
+     * @return {@link Catalogo}
+     * @throws GenericException
+     */
+    public Catalogo obtenerPorNemonico(String nemonico) throws GenericException;
+
 }
